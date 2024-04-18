@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block Title %} Регистрация {% endblock %} {% block
+Content %}
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="height: 100vh"
+>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Регистрация пользователя</h1>
+
+      <form method="post">
+        {% csrf_token %} {% if form.errors %}
+        <div class="alert alert-danger">
+          <p><strong>Ошибка:</strong> Пожалуйста исправьте данные ошибки:</p>
+          <ul>
+            {% for field, errors in form.errors.items %} {% for error in errors
+            %}
+            <li>{{ error }}</li>
+            {% endfor %} {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Имя пользователя:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Электронный адрес:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password1" class="form-label">Пароль:</label>
+          <input
+            type="password"
+            id="password1"
+            name="password1"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password2" class="form-label">Повторный пароль:</label>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зарегистроровать</button>
+      </form>
+
+      <p class="mt-3">
+        У вас уже есть учетная запись?
+        <a href="{% url 'login' %}">Зарегистрироваться</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

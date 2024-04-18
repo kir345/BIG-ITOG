@@ -1,0 +1,122 @@
+{% extends 'base.html' %} {% block Title %} Редактировать рецепт: {{ recipe.name
+}} {% endblock %} {% block Content %}
+<div
+  class="d-flex justify-content-center align-items-top gap-5"
+  style="height: 100vh; margin-bottom: 10vh"
+>
+  <img
+    src="{{ receipt.image.url }}"
+    alt="{{ receipt.name }}"
+    style="max-width: 60vw; max-height: 60vh"
+  />
+  <div class="card w-50">
+    <div class="card-body">
+      <h1 class="card-title">Редактировать рецепт</h1>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {% if form.errors %}
+        <div class="alert alert-danger">
+          <p><strong>Ошибка:</strong> Исправьте данные ошибки:</p>
+          <ul>
+            {% for field, errors in form.errors.items %} {% for error in errors
+            %}
+            <li>{{ error }}</li>
+            {% endfor %} {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary mb-3">
+          Сохранить изменения
+        </button>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Название рецепта:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            required
+            value="{{ receipt.name }}"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Описание:</label>
+          <textarea
+            id="description"
+            name="description"
+            class="form-control"
+            rows="3"
+            required
+          >
+{{ receipt.description }}</textarea
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="sequence_steps" class="form-label">
+            Последовательность приготовления:
+          </label>
+          <textarea
+            id="sequence_steps"
+            name="sequence_steps"
+            class="form-control"
+            rows="10"
+            required
+          >
+{{ receipt.sequence_steps }}</textarea
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="time_to_cook" class="form-label"
+            >Время приготовления (минуты):</label
+          >
+          <input
+            type="number"
+            id="time_to_cook"
+            name="time_to_cook"
+            class="form-control"
+            required
+            value="{{ recipe.time_to_cook }}"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Фотография:</label>
+          <input type="file" id="image" name="image" />
+        </div>
+
+        <div class="mb-2">
+          <label for="categories" class="form-label">Категории:</label>
+          <select
+            id="categories"
+            name="categories"
+            class="form-select"
+            multiple
+          >
+            {% for cat in categories %}
+            <option
+              value="{{ cat }}"
+              {%
+              if
+              cat
+              in
+              receipt.categories.all%}
+              selected
+              {%
+              endif
+              %}
+            >
+              {{ cat }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

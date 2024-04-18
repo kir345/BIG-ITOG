@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block Title %} {{receipt.name}} {% endblock %} {%
+block Content %}
+<div class="d-flex justify-content-center pt-1">
+  <div class="d-flex flex-column align-items-center">
+    <h1>{{receipt.name}}</h1>
+    <p>by {{receipt.author}}</p>
+    {% if receipt.author == user %}
+    <a href="{% url 'edit_receipt' receipt.id %}" class="btn btn-primary mb-3"
+      >Редактировать рецепт</a
+    >
+    {% endif %}
+    <img
+      src="{{receipt.image.url}}"
+      alt="{{receipt.name}}"
+      style="max-width: 70%"
+    />
+  </div>
+</div>
+<div
+  class="mx-auto w-50 d-flex justify-content-center align-items-center pt-1 pb-5"
+  style="max-width: 1200pt"
+>
+  <div class="d-flex col pb-5">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"></li>
+      <li class="list-group-item"><p>{{receipt.description}}</p></li>
+      <li class="list-group-item">
+        <p>Время приготовления: {{receipt.time_to_cook}}</p>
+      </li>
+      <li class="list-group-item"><h4>Инструкции:</h4></li>
+      <li class="list-group-item">
+        <article>
+          {% for step in steps %}
+          <p>{{ step }}</p>
+          {% endfor %}
+        </article>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

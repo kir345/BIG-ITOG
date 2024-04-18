@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block Title %} Рецепт не найден {% endblock %} {%
+block Content %}
+<div>
+  <div class="container mt-5">
+    <div class="card text-center">
+      <div class="card-body">
+        <h1 class="card-title">Нет подходящего рецепта!</h1>
+        <p class="card-text">По вашему запросу рецепт не найден.</p>
+        <p class="card-text">
+          Пожалуйста, введите название еще раз или воспользуйтесь уже имеющимися
+          у нас.
+        </p>
+        <div class="mt-3">
+          <a href="javascript:history.back()" class="btn btn-secondary mr-2"
+            >Назад</a
+          >
+          <a href="{% url 'home' %}" class="btn btn-primary"
+            >Главная страница</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
